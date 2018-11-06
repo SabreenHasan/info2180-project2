@@ -15,7 +15,7 @@ function startup() {
     backgroundSelector();
     returnBackground();
     shuffleButton();
-    winCounter();
+    winnings();
 }
 
 function createPieces() {
@@ -55,12 +55,44 @@ function createPieces() {
 
         empty_T_Value = t;
         empty_U_Value = u;
-    }
-    
+    }  
 }
 
-function movePiece() {
+function movePiece(thisPiece) {
+    if (thisPiece.value === true) {
+        var tempT = parseInt(thisPiece.style.left);
+        var tempU = parseInt(thisPiece.style.top); 
 
+        thisPiece.style.left = emptyT + "px";
+        thisPiece.style.top = emptyU + "px";
+
+        emptyT = tempT;
+        emptyU = tempU;
+
+        if (solvable === true) {
+        //Checks if the puzzle was solved before being shuffled.
+            checkIfSolved();
+        }
+    }
+}
+
+function movablePiece() {.
+//Checks moveability of the piece
+    if (tryT(this) || tryU(this)) {
+        hoveredPiece(this);
+    }
+}
+
+function makeMovable() {
+//Assigns mouse-up listener to each piece.
+    movePiece(this)
+}
+
+function naturalBorder() {
+    this.style.border = "5px solid black";
+    this.style.color = "black";
+    this.style.cursor = "default";
+    this.value = false;
 }
 
 function backgroundSelector() {
@@ -72,7 +104,14 @@ function shuffleButton() {
     button.addEventListener("click", shuffleGame);
 }
 
-
+function winnings() {
+//Determines the numnber of wins so far and returns that amount
+    var wins = document.getElementById("winsSoFar");
+    if (!["winsSoFar"]) {
+        ["winsSoFar"] = 0;
+    }
+    wins.innerHTML = "You have won " + ["winsSoFar"];
+}
 
 
 
