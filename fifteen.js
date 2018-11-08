@@ -7,15 +7,14 @@
 
 
     window.onload = createPieces;
-}
 
-/*function startup() {
+function startup() {
 //Runs a sequence of different functions in the order the game is expected to be played.
     createPieces();
     backgroundSelector();
     returnBackground();
     shuffleButton();
-    winnings();*/
+    winnings();
 }
 
 function createPieces() {
@@ -59,7 +58,7 @@ function createPieces() {
         empty_U_Value = u;
     }  
 }
-/*
+
 function movePiece(thisPiece) {
     if (thisPiece.value === true) {
         var tempT = parseInt(thisPiece.style.left);
@@ -113,7 +112,7 @@ function puzzleBackground() {
     }
     locally["backgrounds"] = backG;
 }
-/*
+
 function highlightedPiece(thisPiece) {
 //Changes the features of a movable piece.
     highlight = document.getElement("moveablepiece") 
@@ -225,5 +224,4 @@ function winnings() {
         locally["winsSoFar"] = 0;
     }
     wins.innerHTML = "Total wins: " + locally["winsSoFar"];
-}();
-*/
+}
