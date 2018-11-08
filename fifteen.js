@@ -1,21 +1,21 @@
-function() {
-    var puzzleSize = 15;
-    var puzzleRows_Columns = 4;
-    var sizeForPiece = 100;
+    const PUZZLE_SIZE = 15;
+    const PUZZLE_ROWS_COLUMNS = 4;
+    const SIZE_FOR_PIECE = 100;
     var solvable = true;
     var empty_T_Value;
     var empty_U_Value;
 
-    window.onload = startup;
+
+    window.onload = createPieces;
 }
 
-function startup() {
+/*function startup() {
 //Runs a sequence of different functions in the order the game is expected to be played.
     createPieces();
     backgroundSelector();
     returnBackground();
     shuffleButton();
-    winnings();
+    winnings();*/
 }
 
 function createPieces() {
@@ -25,22 +25,24 @@ function createPieces() {
     var count = 0;
     var puzzle = document.getElementById("puzzlearea");
     
-    for (var s = 0; s < puzzle_size; s++) {
+    for (var s = 0; s < PUZZLE_SIZE; s++) {
         var value = s + 1;
-        if (count == puzzleRows_Columns) {
+        if (count == PUZZLE_ROWS_COLUMNS) {
             //Ensures that only 4 pieces are used for each row then goes to the next row whenever that row is full.
-            x = 0;
-            y += puzzle_size;
+            t = 0;
+            u += PUZZLE_SIZE;
             count = 0;
         }
-        var piece = document.getElement("div");
-        piece.className = "puzzlepiece";
+        var piece = document.getElementsByTagName("div");
+
+        for (var m = 0; m < piece.length; m++)
+        piece[m].className = "puzzlepiece";
         piece.innerHTML = value;
         
         piece.value = false; //Checking if the value can be moved
-        piece.style.left = t + "px";
-        piece.style.top = u + "px";
-        piece.style.backgroundPosition = -t +"px" + -u + "px";
+        piece[m].style.left = t + "px";
+        piece[m].style.top = u + "px";
+        piece[m].style.backgroundPosition = "-" + piece[m].style.left + " " + "-" + piece[m].style.top;
 
         piece.onmouseover = movablePiece;
         //Can the selected piece be moved to the empty space.
@@ -51,23 +53,23 @@ function createPieces() {
         piece.onmouseout = naturalBorder;
         puzzle.appendChild(piece);
         count ++
-        t += puzzle_size;
+        t += PUZZLE_SIZE;
 
         empty_T_Value = t;
         empty_U_Value = u;
     }  
 }
-
+/*
 function movePiece(thisPiece) {
     if (thisPiece.value === true) {
         var tempT = parseInt(thisPiece.style.left);
         var tempU = parseInt(thisPiece.style.top); 
 
-        thisPiece.style.left = emptyT + "px";
-        thisPiece.style.top = emptyU + "px";
+        thisPiece.style.left = empty_T_Value + "px";
+        thisPiece.style.top = empty_U_Value + "px";
 
-        emptyT = tempT;
-        emptyU = tempU;
+        empty_T_Value = tempT;
+        empty_U_Value = tempU;
 
         if (solvable === true) {
         //Checks if the puzzle was solved before being shuffled.
@@ -111,7 +113,7 @@ function puzzleBackground() {
     }
     locally["backgrounds"] = backG;
 }
-
+/*
 function highlightedPiece(thisPiece) {
 //Changes the features of a movable piece.
     highlight = document.getElement("moveablepiece") 
@@ -149,7 +151,7 @@ function shuffleGame() {
     solvable = true;
 }   
 
-function checkSolved(){
+function checkIfSolved(){
 //Checks the completeness of the puzzles.
     var solveT = 0;
     var solveU = 0;
@@ -159,10 +161,10 @@ function checkSolved(){
 
     for (var m = 0; m < piecesDem.length; m++) {
     //skips through the spaces to compare the coordinates to the current positions of the puzzle pieces.
-        if (count == puzzleRows_Columns) {
+        if (count == PUZZLE_ROWS_COLUMNS) {
         //If coordinates match then completed counter is increased by one, or if not then it is reset to zero.
             solveT = 0;
-            solveU += sizeForPiece;
+            solveU += SIZE_FOR_PIECE;
             count = 0;
         }    
         if (parseInt(piecesDem[m].style.left) == solveT && parseInt(piecesDem[m].style.top) == solveU) {
@@ -172,10 +174,10 @@ function checkSolved(){
             finish = 0;
         }
         count++;
-        solveT += sizeForPiece;
+        solveT += SIZE_FOR_PIECE;
     }
 
-    if (finish == sizeForPiece) {
+    if (finish == SIZE_FOR_PIECE) {
     //if the puzzle is complete then the "you won" message is displayed and the number of wins incremented by one.
         document.getElementById("winnings").innerHTML = "Raaaaaae!! You WON!!";
         var wins = locally["winsSoFar"] = wins;
@@ -188,16 +190,16 @@ function checkSolved(){
 }
 
 function tryT(thisPiece) {
-    if (parseInt(thisPiece.style.left) == emptyT) {
-        if (parseInt(thisPiece.style.top) == (emptyU - sizeForPiece) || parseInt(thisPiece.style.top) == (emptyU + sizeForPiece)) {
+    if (parseInt(thisPiece.style.left) == empty_T_Value) {
+        if (parseInt(thisPiece.style.top) == (empty_U_Value - SIZE_FOR_PIECE) || parseInt(thisPiece.style.top) == (empty_U_Value + SIZE_FOR_PIECE)) {
             return true;
         }
     }
 }
 
 function tryU(thisPiece) {
-    if (parseInt(thisPiece.style.top) == emptyU) {
-        if (parseInt(thisPiece.style.left) == (emptyT - sizeForPiece) || parseInt(thisPiece.style.left) == (emptyT + sizeForPiece)) {
+    if (parseInt(thisPiece.style.top) == empty_U_Value) {
+        if (parseInt(thisPiece.style.left) == (empty_T_Value - SIZE_FOR_PIECE) || parseInt(thisPiece.style.left) == (empty_T_Value + SIZE_FOR_PIECE)) {
             return true;
         }
     }
@@ -224,3 +226,4 @@ function winnings() {
     }
     wins.innerHTML = "Total wins: " + locally["winsSoFar"];
 }();
+*/
